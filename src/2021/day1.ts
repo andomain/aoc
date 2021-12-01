@@ -1,4 +1,5 @@
 const parseInput = (input: string[]) => input.map(Number);
+
 function part1(input: Array<string>) {
   let [current, ...depths] = parseInput(input);
   let score = 0;
