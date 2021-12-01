@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npx aoc start",
     "fetch": "npx aoc fetch",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --ignore-path .eslintignore ./src --ext .js,.ts",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +17,11 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
     "jest": "^27.4.3",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
