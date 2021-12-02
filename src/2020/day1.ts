@@ -8,22 +8,24 @@ const getTwoArrayElementsThatSumTo = (inputArray: number[], target: number): num
 
   while (startIndex < endIndex) {
     const a = inputArray[startIndex];
-    const b = inputArray[endIndex]
+    const b = inputArray[endIndex];
     const sum = a + b;
 
     if (sum === target) {
       return [a, b];
-    } else if (sum < target) {
-      startIndex++;
-    } else endIndex--;
+    }
+
+    if (sum < target) {
+      startIndex += 1;
+    } else endIndex -= 1;
   }
 
   throw new Error(`Could not find 2 elements summing to ${target}`);
-}
+};
 
 const getThreeElementsThatSumTo = (inputArray: number[], target: number): number[] => {
   let startIndex = 0;
-  let maxIndex = inputArray.length - 1;
+  const maxIndex = inputArray.length - 1;
 
   while (startIndex <= maxIndex) {
     try {
@@ -31,11 +33,11 @@ const getThreeElementsThatSumTo = (inputArray: number[], target: number): number
       const [a, b] = getTwoArrayElementsThatSumTo(inputArray.slice(startIndex + 1), target - tmp);
       return [tmp, a, b];
     } catch (err) {
-      startIndex++;
+      startIndex += 1;
     }
   }
   throw new Error(`Could not find 3 elements summing to ${target}`);
-}
+};
 
 function part1(input: Array<string>) {
   const parsedInput = parseInput(input);
@@ -49,7 +51,4 @@ function part2(input: Array<string>) {
   return a * b * c;
 }
 
-export {
-  part1,
-  part2
-}
+export { part1, part2 };

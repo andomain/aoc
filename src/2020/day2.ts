@@ -1,15 +1,20 @@
-import { logicalXor, numBetween } from "./lib";
+import { logicalXor, numBetween } from './lib';
 
 type PasswordParts = {
-  a: number
-  b: number
-  char: string
-  password: string
-}
+  a: number;
+  b: number;
+  char: string;
+  password: string;
+};
+type Validator = (rule: PasswordParts) => boolean;
 
 const getParts = (inputString: string): PasswordParts => {
-  const reg = /(\d+)\-(\d+) (\w): (\w+)/;
-  const parts = inputString.match(reg)!;
+  const reg = /(\d+)-(\d+) (\w): (\w+)/;
+  const parts = inputString.match(reg);
+
+  if (!parts) {
+    throw new Error(`Unknown rule structure ${inputString}`);
+  }
 
   return {
     a: Number(parts[1]),
@@ -17,32 +22,33 @@ const getParts = (inputString: string): PasswordParts => {
     char: parts[3],
     password: parts[4],
   };
-}
+};
 
-function part1(input: Array<string>) {
-  return input.reduce((count, passwordLine) => {
-    const { a, b, char, password } = getParts(passwordLine);
-    const charCount = password.split(char).length - 1;
-    if (numBetween(charCount, a, b)) {
-      count++;
+const validate = (input: Array<string>, validatorFn: Validator) => (
+  input.reduce((count, passwordLine) => {
+    const validatorParts = getParts(passwordLine);
+
+    if (validatorFn(validatorParts)) {
+      return count + 1;
     }
     return count;
-  }, 0);
+  }, 0)
+);
+
+function part1(input: Array<string>) {
+  return validate(input, (rule) => {
+    const charCount = rule.password.split(rule.char).length - 1;
+    return numBetween(charCount, rule.a, rule.b);
+  });
 }
 
 function part2(input: Array<string>) {
-  return input.reduce((count, passwordLine) => {
-    const { a, b, char, password } = getParts(passwordLine);
-    if (logicalXor(password[a - 1] === char, password[b - 1] === char)) {
-      count++;
-    }
+  return validate(input, (rule) => {
+    const charA = rule.password[rule.a];
+    const charB = rule.password[rule.b];
 
-    return count;
-
-  }, 0);
+    return logicalXor(charA === rule.char, charB === rule.char);
+  });
 }
 
-export {
-  part1,
-  part2
-}
+export { part1, part2 };
