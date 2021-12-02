@@ -1,4 +1,4 @@
-import { numBetween } from "./lib";
+import { numBetween, splitByEmptyLine } from "./lib";
 import Validator, { Rule } from "./lib/Validator";
 
 enum PassportFields {
@@ -109,26 +109,22 @@ export const pid: Rule<Passport> = (passport) => {
 };
 
 const getPassports = (input: Array<string>): Passport[] => {
-  const passports: Passport[] = [];
+  const passportData = splitByEmptyLine(input);
 
-  let currentPassport: Passport = {};
+  return passportData.reduce((passports: Passport[], passportLines) => {
+    const currentPassport: Passport = {};
 
-  for (const line of input) {
-    if (line == '') {
-      passports.push(currentPassport);
-      currentPassport = {};
+    for (const line of passportLines) {
+      const entries = line.split(/\s/);
+      entries.forEach((entry) => {
+        const [key, val] = entry.split(':') as [keyof Passport, string];
+        currentPassport[key] = val;
+      });
     }
 
-    const entries = line.split(/\s/);
-    entries.forEach((entry) => {
-      const [key, val] = entry.split(':') as [keyof Passport, string];
-      currentPassport[key] = val;
-    });
-  }
-
-  passports.push(currentPassport);
-
-  return passports;
+    passports.push(currentPassport);
+    return passports;
+  }, []);
 };
 
 function part1(input: Array<string>) {
