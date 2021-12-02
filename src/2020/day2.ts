@@ -8,7 +8,7 @@ type PasswordParts = {
 };
 type Validator = (rule: PasswordParts) => boolean;
 
-const getParts = (inputString: string): PasswordParts => {
+export const getParts = (inputString: string): PasswordParts => {
   const reg = /(\d+)-(\d+) (\w): (\w+)/;
   const parts = inputString.match(reg);
 
