@@ -34,7 +34,7 @@ function part2(input: Array<string>) {
     index++;
   }
 
-  return result?.data;
+  return result.data;
 }
 
 export {

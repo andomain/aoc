@@ -38,11 +38,9 @@ const findWeakness = (stream: number[], target: number) => {
       }
     }
   }
-
-  return -1;
 };
 
-function part1(input: Array<string>, preamble = PREAMBLE): number {
+function part1(input: Array<string>, preamble = PREAMBLE) {
   const stream = input.map(Number);
 
   const streamSize = stream.length;
@@ -52,12 +50,10 @@ function part1(input: Array<string>, preamble = PREAMBLE): number {
       return stream[i];
     }
   }
-
-  throw new Error('No target found');
 }
 
 function part2(input: Array<string>, preamble = PREAMBLE) {
-  const target = part1(input, preamble);
+  const target = part1(input, preamble)!;
 
   const stream = input.map(Number);
 
