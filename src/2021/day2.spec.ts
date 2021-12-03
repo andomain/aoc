@@ -27,12 +27,20 @@ describe("Day 2", () => {
   });
 
   describe("Part 1", () => {
+    it('throws when invalid input supplied', () => {
+      expect(() => part1(['back 10'])).toThrow();
+    });
+
     it("is correct", () => {
       expect(part1(testInput)).toBe(150);
     });
   });
 
   describe("Part 2", () => {
+    it('throws when invalid input supplied', () => {
+      expect(() => part2(['back 10'])).toThrow();
+    });
+
     it("is correct", () => {
       expect(part2(testInput)).toBe(900);
     });
