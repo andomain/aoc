@@ -29,3 +29,5 @@ export const splitByEmptyLine = (input: Array<string>): string[][] => input
   .join('\n')
   .split(/\n{2,}/g)
   .map(lines => lines.split('\n'));
+
+export const numBetween = (num: number, min: number, max: number) => num <= max && num >= min;
