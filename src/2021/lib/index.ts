@@ -25,3 +25,7 @@ export const getLeastCommonBits = (bitArray: BitArray, roundUp = true): string =
 
 export const invertBitString = (bitString: string): string => bitString.split('').map(bit => Math.abs(Number(bit) - 1)).join('');
 
+export const splitByEmptyLine = (input: Array<string>): string[][] => input
+  .join('\n')
+  .split(/\n{2,}/g)
+  .map(lines => lines.split('\n'));

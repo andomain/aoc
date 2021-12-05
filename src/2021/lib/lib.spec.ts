@@ -1,4 +1,4 @@
-import { getLeastCommonBits, getMostCommonBits, invertBitString } from ".";
+import { getLeastCommonBits, getMostCommonBits, invertBitString, splitByEmptyLine } from ".";
 
 describe('lib', () => {
   describe('getMostCommonBits', () => {
@@ -55,5 +55,11 @@ describe('lib', () => {
 
   it('inverts a bitstring', () => {
     expect(invertBitString('10110')).toBe('01001');
+  });
+
+  describe('splitByEmptyLine', () => {
+    it('splits by empty lines', () => {
+      expect(splitByEmptyLine(['a', 'b', '', 'c', '', 'd', 'e'])).toEqual([['a', 'b'], ['c'], ['d', 'e']]);
+    });
   });
 });
