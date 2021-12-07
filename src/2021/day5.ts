@@ -18,19 +18,13 @@ export const getSize = (lines: Line[]): { width: number, height: number } => lin
   return max;
 }, { width: 0, height: 0 });
 
-export const getPoint = (input: string): Point => {
-  const [x, y] = input.split(/,/);
-
-  return { x: Number(x), y: Number(y) };
-};
-
 export const getLines = (input: Array<string>): Line[] => {
   return input.map((line) => {
-    const [startString, endString] = line.split(' -> ');
+    const [, startX, startY, endX, endY] = line.match(/(\d+),(\d+) -> (\d+),(\d+)/)!;
 
     return {
-      start: getPoint(startString),
-      end: getPoint(endString),
+      start: { x: Number(startX), y: Number(startY) },
+      end: { x: Number(endX), y: Number(endY) },
     };
   });
 };
