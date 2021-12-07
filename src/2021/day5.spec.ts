@@ -1,4 +1,4 @@
-import { getLines, getSize, getPoint, isOnLine, Line, part1 } from "./day5";
+import { getLines, getSize, getPoint, isOnLine, Line, part1, part2 } from "./day5";
 
 const testInput = [
   '0,9 -> 5,9',
@@ -36,6 +36,9 @@ describe('Day 5', () => {
     const horizontalLine: Line = { start: { x: 1, y: 3 }, end: { x: 4, y: 3 } };
     const verticalLine: Line = { start: { x: 2, y: 1 }, end: { x: 2, y: 4 } };
 
+    const angleDownLine: Line = { start: { x: 1, y: 1 }, end: { x: 3, y: 3 } };
+    const angleUpLine: Line = { start: { x: 5, y: 5 }, end: { x: 8, y: 2 } };
+
     expect(isOnLine({ x: 2, y: 3 }, horizontalLine)).toBe(true);
     expect(isOnLine({ x: 0, y: 3 }, horizontalLine)).toBe(false);
     expect(isOnLine({ x: 5, y: 3 }, horizontalLine)).toBe(false);
@@ -43,11 +46,29 @@ describe('Day 5', () => {
     expect(isOnLine({ x: 2, y: 3 }, verticalLine)).toBe(true);
     expect(isOnLine({ x: 2, y: 0 }, verticalLine)).toBe(false);
     expect(isOnLine({ x: 2, y: 5 }, verticalLine)).toBe(false);
+
+    expect(isOnLine({ x: 2, y: 2 }, angleDownLine)).toBe(true);
+    expect(isOnLine({ x: 2, y: 3 }, angleDownLine)).toBe(false);
+    expect(isOnLine({ x: 1, y: 2 }, angleDownLine)).toBe(false);
+    expect(isOnLine({ x: 0, y: 0 }, angleDownLine)).toBe(false);
+    expect(isOnLine({ x: 5, y: 5 }, angleDownLine)).toBe(false);
+
+    expect(isOnLine({ x: 6, y: 4 }, angleUpLine)).toBe(true);
+    expect(isOnLine({ x: 6, y: 5 }, angleUpLine)).toBe(false);
+    expect(isOnLine({ x: 7, y: 4 }, angleUpLine)).toBe(false);
+    expect(isOnLine({ x: 4, y: 6 }, angleUpLine)).toBe(false);
+    expect(isOnLine({ x: 9, y: 3 }, angleUpLine)).toBe(false);
   });
 
   describe('Part 1', () => {
     it('is correct', () => {
       expect(part1(testInput)).toBe(5);
+    });
+  });
+
+  describe('Part 2', () => {
+    it('is correct', () => {
+      expect(part2(testInput)).toBe(12);
     });
   });
 
