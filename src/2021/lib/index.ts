@@ -31,3 +31,15 @@ export const splitByEmptyLine = (input: Array<string>): string[][] => input
   .map(lines => lines.split('\n'));
 
 export const numBetween = (num: number, min: number, max: number) => num <= max && num >= min;
+
+export const sumArray = (arr: Array<number>): number => arr.reduce((sum, item) => sum += item, 0);
+
+export const rotateArray = <T>(arr: Array<T>): Array<T> => {
+  const shifted = arr.shift();
+
+  if (shifted !== undefined) {
+    arr.push(shifted);
+
+  }
+  return arr;
+};
