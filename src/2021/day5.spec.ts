@@ -1,4 +1,4 @@
-import { getLines, getSize, getPoint, isOnLine, Line, part1, part2 } from "./day5";
+import { getLines, part1, part2 } from "./day5";
 
 const testInput = [
   '0,9 -> 5,9',
@@ -14,50 +14,11 @@ const testInput = [
 ];
 
 describe('Day 5', () => {
-  it('converts strings to Points', () => {
-    expect(getPoint('1,2')).toEqual({ x: 1, y: 2 });
-  });
-
   it('gets lines', () => {
     expect(getLines(['0,1 -> 1,2', '7,2 -> 3,0'])).toEqual([
       { start: { x: 0, y: 1 }, end: { x: 1, y: 2 } },
       { start: { x: 7, y: 2 }, end: { x: 3, y: 0 } },
     ]);
-  });
-
-  it('gets max height/width', () => {
-    expect(getSize([
-      { start: { x: 5, y: 3 }, end: { x: 5, y: 1 } },
-      { start: { x: 1, y: 7 }, end: { x: 8, y: 2 } },
-    ])).toEqual({ width: 9, height: 8 });
-  });
-
-  it('checks if a point is on a line', () => {
-    const horizontalLine: Line = { start: { x: 1, y: 3 }, end: { x: 4, y: 3 } };
-    const verticalLine: Line = { start: { x: 2, y: 1 }, end: { x: 2, y: 4 } };
-
-    const angleDownLine: Line = { start: { x: 1, y: 1 }, end: { x: 3, y: 3 } };
-    const angleUpLine: Line = { start: { x: 5, y: 5 }, end: { x: 8, y: 2 } };
-
-    expect(isOnLine({ x: 2, y: 3 }, horizontalLine)).toBe(true);
-    expect(isOnLine({ x: 0, y: 3 }, horizontalLine)).toBe(false);
-    expect(isOnLine({ x: 5, y: 3 }, horizontalLine)).toBe(false);
-
-    expect(isOnLine({ x: 2, y: 3 }, verticalLine)).toBe(true);
-    expect(isOnLine({ x: 2, y: 0 }, verticalLine)).toBe(false);
-    expect(isOnLine({ x: 2, y: 5 }, verticalLine)).toBe(false);
-
-    expect(isOnLine({ x: 2, y: 2 }, angleDownLine)).toBe(true);
-    expect(isOnLine({ x: 2, y: 3 }, angleDownLine)).toBe(false);
-    expect(isOnLine({ x: 1, y: 2 }, angleDownLine)).toBe(false);
-    expect(isOnLine({ x: 0, y: 0 }, angleDownLine)).toBe(false);
-    expect(isOnLine({ x: 5, y: 5 }, angleDownLine)).toBe(false);
-
-    expect(isOnLine({ x: 6, y: 4 }, angleUpLine)).toBe(true);
-    expect(isOnLine({ x: 6, y: 5 }, angleUpLine)).toBe(false);
-    expect(isOnLine({ x: 7, y: 4 }, angleUpLine)).toBe(false);
-    expect(isOnLine({ x: 4, y: 6 }, angleUpLine)).toBe(false);
-    expect(isOnLine({ x: 9, y: 3 }, angleUpLine)).toBe(false);
   });
 
   describe('Part 1', () => {
