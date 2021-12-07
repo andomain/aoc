@@ -43,3 +43,5 @@ export const rotateArray = <T>(arr: Array<T>): Array<T> => {
   }
   return arr;
 };
+
+export const sumRange = (max: number, min = 0): number => (max * (max + 1) - (min - 1) * min) / 2;
