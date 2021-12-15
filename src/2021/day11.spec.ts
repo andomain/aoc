@@ -38,16 +38,17 @@ describe('Day 11', () => {
       ]);
     });
   });
-});
 
-describe('Part 1', () => {
-  it('is correct', () => {
-    expect(part1(testInput)).toBe(1656);
+
+  describe('Part 1', () => {
+    it('is correct', () => {
+      expect(part1(testInput)).toBe(1656);
+    });
   });
-});
 
-describe('Part 2', () => {
-  it('is correct', () => {
-    expect(part2(testInput)).toBe(195);
+  describe('Part 2', () => {
+    it('is correct', () => {
+      expect(part2(testInput)).toBe(195);
+    });
   });
 });

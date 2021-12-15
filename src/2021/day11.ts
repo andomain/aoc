@@ -1,6 +1,4 @@
-import Grid from "../lib/Grid";
-
-const parseInput = (input: Array<string>): Grid<number> => new Grid(10, 10, input.map(line => line.split('').map(Number)));
+import Grid, { numberGridFromStrings } from "../lib/Grid";
 
 export const step = (grid: Grid<number>): number => {
   const flashed: Set<string> = new Set();
@@ -36,7 +34,7 @@ export const step = (grid: Grid<number>): number => {
 };
 
 function part1(input: Array<string>, steps = 100) {
-  const grid = parseInput(input);
+  const grid = numberGridFromStrings(input);
   let flashes = 0;
 
   for (let i = 0; i < steps; i++) {
@@ -47,7 +45,7 @@ function part1(input: Array<string>, steps = 100) {
 }
 
 function part2(input: Array<string>) {
-  const grid = parseInput(input);
+  const grid = numberGridFromStrings(input);
   let prevFlashCount = 0;
   let flashChange = 0;
   let stepCount = 0;

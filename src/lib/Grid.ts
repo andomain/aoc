@@ -58,3 +58,12 @@ export default class Grid<T> {
     console.log(this.data.map(row => row.join('')).join("\n"));
   }
 }
+
+export const numberGridFromStrings = (input: Array<string>): Grid<number> => {
+  const height = input.length;
+  const width = input[0].length;
+
+  const numbers = input.map(row => row.split('').map(Number));
+
+  return new Grid(width, height, numbers);
+};

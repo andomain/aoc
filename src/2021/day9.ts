@@ -1,84 +1,44 @@
-const pointKey = (x: number, y: number): string => `${x}/${y}`;
+import Grid, { numberGridFromStrings } from "../lib/Grid";
 
-const isSafeDirection = (grid: number[][], x: number, y: number): boolean => {
-  return (x >= 0 && y >= 0 && x < grid[0].length && y < grid.length);
-};
-
-const DFS = (grid: number[][], startX: number, startY: number, visited: Set<string>): number => {
-  const SEARCH = [
-    { x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 },
-  ];
-
-  visited.add(pointKey(startX, startY));
+const DFS = (grid: Grid<number>, x: number, y: number, visited: Set<string>): number => {
+  visited.add(grid.label(x, y));
   let searched = 1;
 
-  for (const searchDir of SEARCH) {
-    const searchX = startX + searchDir.x;
-    const searchY = startY + searchDir.y;
-
-    if (isSafeDirection(grid, searchX, searchY) && !visited.has(pointKey(searchX, searchY)) && grid[searchY][searchX] < 9) {
-      searched += DFS(grid, searchX, searchY, visited);
+  grid.neighbours(x, y).forEach(({ x: nextX, y: nextY }) => {
+    if (!visited.has(grid.label(nextX, nextY)) && grid.get(nextX, nextY) < 9) {
+      searched += DFS(grid, nextX, nextY, visited);
     }
-  }
+  });
+
   return searched;
 };
 
-const parseInput = (input: Array<string>) => input.map(row => row.split('').map(Number));
-
 function part1(input: Array<string>) {
-  const depths = parseInput(input);
-
-  const gridHeight = depths.length;
-  const gridWidth = depths[0].length;
-
-  const getAdjacentPoints = (x: number, y: number): number[][] => {
-    const points: number[][] = [];
-    if (x > 0) {
-      points.push([x - 1, y]);
-    }
-    if (x < gridWidth - 1) {
-      points.push([x + 1, y]);
-    }
-
-    if (y > 0) {
-      points.push([x, y - 1]);
-    }
-
-    if (y < gridHeight - 1) {
-      points.push([x, y + 1]);
-    }
-
-    return points;
-  };
-
+  const depths = numberGridFromStrings(input);
   let count = 0;
 
-  for (let y = 0; y < gridHeight; y++) {
-    for (let x = 0; x < gridWidth; x++) {
-      if (getAdjacentPoints(x, y).every(([checkX, checkY]) => depths[y][x] < depths[checkY][checkX])) {
-        count += (depths[y][x] + 1);
-      }
+  depths.forEach((v, x, y) => {
+    const current = depths.get(x, y);
+    if (depths.neighbours(x, y).every(({ x: xNeighbour, y: yNeighbour }) => current < depths.get(xNeighbour, yNeighbour))) {
+      count += current + 1;
     }
-  }
+  });
+
   return count;
 }
 
 function part2(input: Array<string>) {
   const BASIN_BOUNDARY = 9;
-  const depths = parseInput(input);
-  const gridHeight = depths.length;
-  const gridWidth = depths[0].length;
+  const depths = numberGridFromStrings(input);
   const visited: Set<string> = new Set();
-  const basinSizes = [];
+  const basinSizes: number[] = [];
 
-  for (let y = 0; y < gridHeight; y++) {
-    for (let x = 0; x < gridWidth; x++) {
-      if (depths[y][x] < BASIN_BOUNDARY && !visited.has(pointKey(x, y))) {
-        const size = DFS(depths, x, y, visited);
-        basinSizes.push(size);
-      }
+  depths.forEach((depth, x, y) => {
+    if (depth < BASIN_BOUNDARY && !visited.has(depths.label(x, y))) {
+      const size = DFS(depths, x, y, visited);
+      basinSizes.push(size);
     }
-  }
+  });
 
   const top3 = basinSizes.sort((a, b) => a - b).slice(-3);
   return top3.reduce((product, size) => product *= size, 1);

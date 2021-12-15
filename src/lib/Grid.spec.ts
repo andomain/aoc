@@ -1,4 +1,4 @@
-import Grid from "./Grid";
+import Grid, { numberGridFromStrings } from "./Grid";
 
 describe('Grid', () => {
   it('initialises', () => {
@@ -106,5 +106,19 @@ describe('Grid', () => {
     const test = new Grid(2, 2, init);
 
     expect(test.label(1, 0)).toBe('(1,0)');
+  });
+});
+
+describe('numberGridFromStrings', () => {
+  it('creates instance', () => {
+    const input = ['123', '456'];
+
+    const grid = numberGridFromStrings(input);
+
+    expect(grid).toBeInstanceOf(Grid);
+    expect(grid.data).toEqual([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
   });
 });
