@@ -19,7 +19,7 @@ describe('Day 12', () => {
 
   describe('Part 2', () => {
     it('is correct', () => {
-      expect(part2(testInput1)).toBe(12);
+      expect(part2(testInput1)).toBe(36);
     });
   });
 });
