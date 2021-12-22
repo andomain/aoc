@@ -1,4 +1,4 @@
-import { splitByEmptyLine } from './lib';
+import { splitByEmptyLine } from "../lib/utils";
 
 const MARK = -1;
 type BingoNumbers = number[];

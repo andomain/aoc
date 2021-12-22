@@ -28,7 +28,6 @@ describe('Day 11', () => {
       const flashes = step(input);
 
       expect(flashes).toBe(9);
-      input.print();
       expect(input.data).toEqual([
         [3, 4, 5, 4, 3],
         [4, 0, 0, 0, 4],

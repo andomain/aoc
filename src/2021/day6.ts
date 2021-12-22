@@ -1,4 +1,4 @@
-import { rotateArray, sumArray } from "./lib";
+import { rotateArray, sumArray } from '../lib/utils';
 
 const STARTING_INTERVAL = 8;
 const RESET_INTERVAL = 6;

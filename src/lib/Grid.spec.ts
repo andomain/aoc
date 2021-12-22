@@ -107,6 +107,62 @@ describe('Grid', () => {
 
     expect(test.label(1, 0)).toBe('(1,0)');
   });
+
+  it('creates slices', () => {
+    const init = [
+      [0, 1, 2, 3],
+      [4, 5, 6, 7],
+      [8, 9, 10, 11],
+      [12, 13, 14, 15],
+    ];
+    const test = new Grid(4, 4, init);
+
+    const startSlice = test.slice({ x: 2, y: 2 });
+    expect(startSlice.data).toEqual([[10, 11], [14, 15]]);
+
+    const endSlice = test.slice({ x: 1, y: 1 }, { x: 3, y: 2 });
+    expect(endSlice.data).toEqual([
+      [5, 6, 7],
+      [9, 10, 11],
+    ]);
+  });
+
+  describe('Mirror', () => {
+    let init: number[][];
+
+    beforeEach(() => {
+      init = [
+        [0, 1, 2, 3],
+        [4, 5, 6, 7],
+        [8, 9, 10, 11],
+        [12, 13, 14, 15],
+      ];
+    });
+
+    it('X', () => {
+      const test = new Grid(4, 4, init);
+      test.mirrorX();
+      expect(test.data).toEqual([
+        [3, 2, 1, 0],
+        [7, 6, 5, 4],
+        [11, 10, 9, 8],
+        [15, 14, 13, 12],
+      ]);
+    });
+
+    it('Y', () => {
+      console.log('HEY', init);
+      const test = new Grid(4, 4, init);
+      test.mirrorY();
+      test.print();
+      expect(test.data).toEqual([
+        [12, 13, 14, 15],
+        [8, 9, 10, 11],
+        [4, 5, 6, 7],
+        [0, 1, 2, 3],
+      ]);
+    });
+  });
 });
 
 describe('numberGridFromStrings', () => {

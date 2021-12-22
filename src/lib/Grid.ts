@@ -1,4 +1,5 @@
 type GridFn<T, S = T> = (v: T, x: number, y: number) => S;
+type Coord = { x: number, y: number };
 
 const directions = [
   [0, -1],
@@ -29,6 +30,25 @@ export default class Grid<T> {
 
   set(x: number, y: number, v: T): void {
     this.data[y][x] = v;
+  }
+
+  slice(start: Coord, end: Coord = { x: this.width, y: this.height }): Grid<T> {
+    const sliced = this.data.slice(start.y, end.y + 1).map(row => row.slice(start.x, end.x + 1));
+    const width = end.x - start.x;
+    const height = end.y - start.y;
+
+    return new Grid(width, height, sliced);
+  }
+
+  mirrorX(): Grid<T> {
+    this.data.map(row => row.reverse());
+    return this;
+  }
+
+  mirrorY(): Grid<T> {
+    this.data.reverse();
+
+    return this;
   }
 
   neighbours(x: number, y: number, diagonals = false): {

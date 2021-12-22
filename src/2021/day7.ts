@@ -1,4 +1,4 @@
-import { sumRange } from "./lib";
+import { sumRange } from "../lib/utils";
 
 type FuelFn = (start: number, end: number) => number;
 
