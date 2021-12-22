@@ -30,4 +30,20 @@ describe('Day13', () => {
       expect(part1(testInput)).toBe(17);
     });
   });
+
+  describe('Part 2', () => {
+    it('applies multiple folds', () => {
+      const result = part2(testInput);
+
+      expect(result.data).toEqual([
+        ['#', '#', '#', '#', '#'],
+        ['#', '.', '.', '.', '#'],
+        ['#', '.', '.', '.', '#'],
+        ['#', '.', '.', '.', '#'],
+        ['#', '#', '#', '#', '#'],
+        ['.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.'],
+      ]);
+    });
+  });
 });
